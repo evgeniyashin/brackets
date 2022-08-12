@@ -1,13 +1,10 @@
 module.exports = function check(str, bracketsConfig) {
  let stack = [];
-  let arr = [];
-  for (n=0; n<bracketsConfig.length; n++) {
-    arr.push(...bracketsConfig[n])
-  }
-   
+  
+  for (let element of bracketsConfig) { 
   for (let i=0; i<str.length; i++) {
     let currentSymbol = str[i];
-    if (arr.includes(currentSymbol)) {
+    if (element[0] === currentSymbol) {
         stack.push(currentSymbol);
         //console.log(stack);    
     } else {
@@ -15,7 +12,7 @@ module.exports = function check(str, bracketsConfig) {
           return false;
       }
       let topSymbol = stack[stack.length-1]
-      if (topSymbol === arr[arr.indexOf(currentSymbol)-1]) {
+      if (element[1] === currentSymbol && element.includes(topSymbol)) {
           stack.pop();
           //console.log(stack);
       } else {
@@ -44,6 +41,6 @@ module.exports = function check(str, bracketsConfig) {
    // }) 
     //return '1'
   }
-
+}
   return stack.length === 0;
 }
